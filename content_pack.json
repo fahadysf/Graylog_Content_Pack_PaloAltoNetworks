@@ -16,13 +16,13 @@
       "tls_cert_file" : "",
       "bind_address" : "0.0.0.0"
     },
-    "type" : "org.graylog2.inputs.syslog.tcp.SyslogTCPInput",
+    "type" : "org.graylog2.inputs.raw.udp.RawUDPInput",
     "global" : true,
     "extractors" : [ {
       "title" : "PAN_THREAT",
       "type" : "GROK",
       "configuration" : {
-        "grok_pattern" : "%{IPORHOST:source} +:* *%{BASE10NUM:Domain},%{DATE_US2:LoggedDate} +%{TIME:LoggedTime},%{NOTCOMMA:SerialNumber},%{NOTCOMMA:Type},%{NOTCOMMA:Subtype},%{NOTCOMMA:ConfigVersion},%{DATE_US2:EventDate} +%{TIME:EventTime},%{IP:SourceIP},%{IP:DestinationIP},(%{IP:NATSourceIP})?,(%{IP:NATDestinationIP})?,(%{NOTCOMMA:RuleName})?,(%{NOTCOMMA:SourceUser})?,(%{NOTCOMMA:DestinationUser})?,(%{NOTCOMMA:Application})?,%{NOTCOMMA:VirtualSystem},%{NOTCOMMA:SourceZone},%{NOTCOMMA:DestinationZone},%{NOTCOMMA:IngressInterface},(%{NOTCOMMA:EgressInterface})?,%{NOTCOMMA:LogForwardingProfile},%{NOTCOMMA:UNWANTED},%{BASE10NUM:SessionID},%{BASE10NUM:RepeatCount},(%{BASE10NUM:SourcePort})?,(%{BASE10NUM:DestinationPort})?,(%{BASE10NUM:NATSourcePort})?,(%{BASE10NUM:NATDestinationPort})?,%{NOTCOMMA:Flags},%{NOTCOMMA:Protocol},%{NOTCOMMA:Action},%{QSORNC:Miscellaneous},%{NOTCOMMA:ThreatID},%{NOTCOMMA:Category},%{NOTCOMMA:Severity},%{NOTCOMMA:Direction},%{BASE10NUM:Sequence},%{NOTCOMMA:ActionFlags},(%{NOTCOMMA:SourceLocation})?,(%{NOTCOMMA:DestinationLocation})?.*"
+        "grok_pattern" : "<%{BASE10NUM}>%{MONTH}%{SPACE}%{MONTHDAY}%{SPACE}%{TIME}%{SPACE}%{IPORHOST:Source}%{SPACE}%{BASE10NUM:test},%{DATE_US2:LoggedDate} %{NOTCOMMA:LoggedTime},%{NOTCOMMA:SerialNumber},%{NOTCOMMA:Type},%{NOTCOMMA:Subtype},%{NOTCOMMA:ConfigVersion},%{DATE_US2:EventDate} +%{TIME:EventTime},%{IP:SourceIP},%{IP:DestinationIP},(%{IP:NATSourceIP})?,(%{IP:NATDestinationIP})?,(%{NOTCOMMA:RuleName})?,(%{NOTCOMMA:SourceUser})?,(%{NOTCOMMA:DestinationUser})?,(%{NOTCOMMA:Application})?,%{NOTCOMMA:VirtualSystem},%{NOTCOMMA:SourceZone},%{NOTCOMMA:DestinationZone},%{NOTCOMMA:IngressInterface},(%{NOTCOMMA:EgressInterface})?,%{NOTCOMMA:LogForwardingProfile},%{NOTCOMMA:UNWANTED},%{BASE10NUM:SessionID},%{BASE10NUM:RepeatCount},(%{BASE10NUM:SourcePort})?,(%{BASE10NUM:DestinationPort})?,(%{BASE10NUM:NATSourcePort})?,(%{BASE10NUM:NATDestinationPort})?,%{NOTCOMMA:Flags},%{NOTCOMMA:Protocol},%{NOTCOMMA:Action},%{QSORNC:Miscellaneous},%{NOTCOMMA:ThreatID},%{NOTCOMMA:Category},%{NOTCOMMA:Severity},%{NOTCOMMA:Direction},%{BASE10NUM:Sequence},%{NOTCOMMA:ActionFlags},(%{NOTCOMMA:SourceLocation})?,(%{NOTCOMMA:DestinationLocation})?.*"
       },
       "converters" : [ ],
       "order" : 0,
@@ -35,7 +35,7 @@
       "title" : "PAN_CONFIG",
       "type" : "GROK",
       "configuration" : {
-        "grok_pattern" : "%{IPORHOST:source} +:* *%{BASE10NUM:Domain},%{DATE_US2:LoggedDate} +%{TIME:LoggedTime},%{NOTCOMMA:SerialNumber},%{NOTCOMMA:Type},%{NOTCOMMA:Subtype},%{BASE10NUM:ConfigVersion},%{DATE_US2:EventDate} +%{TIME:EventTime},%{IPV4:Host},(%{NOTCOMMA:VirtualSystem})?,%{NOTCOMMA:Cmd},%{NOTCOMMA:Admin},%{NOTCOMMA:Client},%{NOTCOMMA:Result},(%{NOTCOMMA:Path})?,%{NOTCOMMA:Sequence},%{NOTCOMMA:ActionFlags}.*"
+        "grok_pattern" : "<%{BASE10NUM}>%{MONTH}%{SPACE}%{MONTHDAY}%{SPACE}%{TIME}%{SPACE}%{IPORHOST:Source}%{SPACE}%{BASE10NUM:test},%{DATE_US2:LoggedDate} %{NOTCOMMA:LoggedTime},%{NOTCOMMA:SerialNumber},%{NOTCOMMA:Type},%{NOTCOMMA:Subtype},%{NOTCOMMA:ConfigVersion},%{DATE_US2:EventDate} +%{TIME:EventTime},%{IPV4:Host},(%{NOTCOMMA:VirtualSystem})?,%{NOTCOMMA:Cmd},%{NOTCOMMA:Admin},%{NOTCOMMA:Client},%{NOTCOMMA:Result},(%{NOTCOMMA:Path})?,%{NOTCOMMA:Sequence},%{NOTCOMMA:ActionFlags}.*"
       },
       "converters" : [ ],
       "order" : 2,
@@ -48,7 +48,7 @@
       "title" : "PAN_TRAFFIC",
       "type" : "GROK",
       "configuration" : {
-        "grok_pattern" : "%{IPORHOST:source} +:* *%{BASE10NUM:Domain},%{DATE_US2:LoggedDate} +%{TIME:LoggedTime},%{NOTCOMMA:SerialNumber},%{NOTCOMMA:Type},%{NOTCOMMA:Subtype},%{NOTCOMMA:ConfigVersion},%{DATE_US2:EventDate} +%{TIME:EventTime},%{IP:SourceIP},%{IP:DestinationIP},(%{IP:NATSourceIP})?,(%{IP:NATDestinationIP})?,%{NOTCOMMA:RuleName},(%{NOTCOMMA:SourceUser})?,(%{NOTCOMMA:DestinationUser})?,(%{NOTCOMMA:Application})?,%{NOTCOMMA:VirtualSystem},%{NOTCOMMA:SourceZone},%{NOTCOMMA:DestinationZone},%{NOTCOMMA:IngressInterface},(%{NOTCOMMA:EgressInterface})?,%{NOTCOMMA:LogForwardingProfile},%{NOTCOMMA:UNWANTED},%{BASE10NUM:SessionID},%{BASE10NUM:RepeatCount},(%{BASE10NUM:SourcePort})?,(%{BASE10NUM:DestinationPort})?,(%{BASE10NUM:NATSourcePort})?,(%{BASE10NUM:NATDestinationPort})?,%{NOTCOMMA:Flags},%{NOTCOMMA:Protocol},%{NOTCOMMA:Action},%{BASE10NUM:Bytes;long},%{BASE10NUM:BytesSent;long},%{BASE10NUM:BytesReceived;long},%{BASE10NUM:Packets;long},%{NOTCOMMA:UNWANTED},%{BASE10NUM:ElapsedTime},%{NOTCOMMA:Category},%{BASE10NUM:Padding},%{BASE10NUM:Sequence},%{NOTCOMMA:ActionFlags},(%{NOTCOMMA:SourceLocation})?,(%{NOTCOMMA:DestinationLocation}),(%{BASE10NUM:UNWANTED})?,%{BASE10NUM:PktsSent;long},%{BASE10NUM:PktsReceived;long},(%{NOTCOMMA:SessionEndReason})?.*"
+        "grok_pattern" : "<%{BASE10NUM}>%{MONTH}%{SPACE}%{MONTHDAY}%{SPACE}%{TIME}%{SPACE}%{IPORHOST:Source}%{SPACE}%{BASE10NUM:test},%{DATE_US2:LoggedDate} %{NOTCOMMA:LoggedTime},%{BASE10NUM:SerialNumber},%{NOTCOMMA:Type},%{NOTCOMMA:Subtype},%{NOTCOMMA},%{DATE_US2:EventDate} %{NOTCOMMA:EventTime},%{IP:SourceIP},%{IP:DestinationIP},(%{IP:NATSourceIP})?,(%{IP:NATDestinationIP})?,%{NOTCOMMA:RuleName},(%{NOTCOMMA:SourceUser})?,(%{NOTCOMMA:DestinationUser})?,(%{NOTCOMMA:Application})?,%{NOTCOMMA:VirtualSystem},%{NOTCOMMA:SourceZone},%{NOTCOMMA:DestinationZone},%{NOTCOMMA:IngressInterface},(%{NOTCOMMA:EgressInterface})?,%{NOTCOMMA:LogForwardingProfile},%{NOTCOMMA:UNWANTED},%{BASE10NUM:SessionID},%{BASE10NUM:RepeatCount},(%{BASE10NUM:SourcePort})?,(%{BASE10NUM:DestinationPort})?,(%{BASE10NUM:NATSourcePort})?,(%{BASE10NUM:NATDestinationPort})?,%{NOTCOMMA:Flags},%{NOTCOMMA:Protocol},%{NOTCOMMA:Action},%{BASE10NUM:Bytes;long},%{BASE10NUM:BytesSent;long},%{BASE10NUM:BytesReceived;long},%{BASE10NUM:Packets;long},%{NOTCOMMA:UNWANTED},%{BASE10NUM:ElapsedTime},%{NOTCOMMA:Category},%{BASE10NUM:Padding},%{BASE10NUM:Sequence},%{NOTCOMMA:ActionFlags},(%{NOTCOMMA:SourceLocation})?,(%{NOTCOMMA:DestinationLocation}),(%{BASE10NUM:UNWANTED})?,%{BASE10NUM:PktsSent;long},%{BASE10NUM:PktsReceived;long},(%{NOTCOMMA:SessionEndReason})?.*"
       },
       "converters" : [ ],
       "order" : 3,
@@ -74,7 +74,7 @@
       "title" : "PAN_SYSTEM",
       "type" : "GROK",
       "configuration" : {
-        "grok_pattern" : "%{IPORHOST:source} +:* *%{BASE10NUM:Domain},%{DATE_US2:LoggedDate} +%{TIME:LoggedTime},%{NOTCOMMA:SerialNumber},%{NOTCOMMA:Type},%{NOTCOMMA:Subtype},%{BASE10NUM:ConfigVersion},%{DATE_US2:EventDate} +%{TIME:EventTime},(%{NOTCOMMA:VirtualSystem})?,%{NOTCOMMA:Event},(%{NOTCOMMA:Object})?,(%{NOTCOMMA:FMT})?,(%{NOTCOMMA:ID})?,(%{NOTCOMMA:Module})?,%{NOTCOMMA:Severity},%{QSORNC:Description},%{NOTCOMMA:Sequence},%{NOTCOMMA:ActionFlags}.*"
+        "grok_pattern" : "<%{BASE10NUM}>%{MONTH}%{SPACE}%{MONTHDAY}%{SPACE}%{TIME}%{SPACE}%{IPORHOST:Source}%{SPACE}%{BASE10NUM:test},%{DATE_US2:LoggedDate} %{NOTCOMMA:LoggedTime},%{NOTCOMMA:SerialNumber},%{NOTCOMMA:Type},%{NOTCOMMA:Subtype},%{NOTCOMMA:ConfigVersion},%{DATE_US2:EventDate} +%{TIME:EventTime},(%{NOTCOMMA:VirtualSystem})?,%{NOTCOMMA:Event},(%{NOTCOMMA:Object})?,(%{NOTCOMMA:FMT})?,(%{NOTCOMMA:ID})?,(%{NOTCOMMA:Module})?,%{NOTCOMMA:Severity},%{QSORNC:Description},%{NOTCOMMA:Sequence},%{NOTCOMMA:ActionFlags}.*"
       },
       "converters" : [ ],
       "order" : 1,
